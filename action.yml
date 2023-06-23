@@ -8,9 +8,9 @@ inputs:
     description: Token for the GitHub API.
     required: true
   filter:
-    description: Filter to be used. 'auto-merge' | 'always'
+    description: Filter to be used. 'auto-merge' | 'always' | 'label'
     required: false
-    default: 'auto-merge'
+    default: 'label'
 runs:
   using: 'node16'
   main: 'dist/index.js'

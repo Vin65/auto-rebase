@@ -9,7 +9,7 @@ const { rebasePullRequest } = require('github-rebase');
 
 const token = getInput('github_token')
 const filter = getInput('filter')
-if (!['always', 'auto-merge'].includes(filter)) {
+if (!['always', 'auto-merge', 'label'].includes(filter)) {
     setFailed("Illegal filter used");
 }
 

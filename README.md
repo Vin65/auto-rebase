@@ -10,24 +10,24 @@ This action rebases all open PR's when the base branch in updated.
 
 ### `filter`
 
-`auto-merge` **default**  Only rebase PR's set automatically merge when all requirements are met
+`label` **default** Rebase PRs that contain the label **rebase**
+
+`auto-merge` Only rebase PR's set automatically merge when all requirements are met
 
 `always` Rebase all PR's to the current branch
-
-`label` Rebase PRs that contain the label **rebase**
 
 ## Example usage
 ```yaml
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   rebase:
     runs-on: ubuntu-latest
     steps:
-      - uses: Vin65/auto-rebase@v0.1.0
+      - uses: Vin65/auto-rebase@v0.1.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           filter: label
