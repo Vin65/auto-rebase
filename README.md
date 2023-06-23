@@ -14,6 +14,8 @@ This action rebases all open PR's when the base branch in updated.
 
 `always` Rebase all PR's to the current branch
 
+`label` Rebase PRs that contain the label **rebase**
+
 ## Example usage
 ```yaml
 on:
@@ -25,7 +27,8 @@ jobs:
   rebase:
     runs-on: ubuntu-latest
     steps:
-      - uses: jimbloemkolk/auto-rebase@v0.1.0
+      - uses: Vin65/auto-rebase@v0.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          filter: label
 ```
