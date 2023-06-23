@@ -24,7 +24,7 @@ console.log(`Current branch: ${base}`)
 
 try {
     run(octokit, owner, repo, base);
-} catch(error: any) {
+} catch (error: any) {
     setFailed(error.message);
 }
 
@@ -34,7 +34,7 @@ async function run(octokit: Octokit, owner: string, repo: string, base: string) 
         repo: repo,
         base: base
     }, res => res.data);
-    
+
     let pullsToRebase;
     if (filter === 'auto-merge') {
         pullsToRebase = pulls.filter(pull => pull.auto_merge !== null)
@@ -42,6 +42,8 @@ async function run(octokit: Octokit, owner: string, repo: string, base: string) 
         if (pullsToRebase.length === 0) {
             console.log(`No PR's updated. There are ${pulls.length} PR's open, but none are on auto merge`)
         }
+    } else if (filter === 'label') {
+        pullsToRebase = pulls.filter(pull => pull.labels.some(e => e.name === 'rebase'))
     } else {
         pullsToRebase = pulls
     }
@@ -55,7 +57,7 @@ async function run(octokit: Octokit, owner: string, repo: string, base: string) 
                 repo: repo
             })
             console.log(`updated PR "${pull.title}" to new HEAD ${newSha}`)
-        } catch(error: any) {
+        } catch (error: any) {
             console.log(error.message)
             if (error instanceof Error && error.message === "Merge conflict") {
                 console.log(`Could not update "${pull.title}" because of merge conflicts`)
